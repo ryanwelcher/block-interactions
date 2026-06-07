@@ -1,0 +1,203 @@
+/**
+ * Block Interactions — animation presets.
+ *
+ * The "hidden" starting state only applies under the `bi-js` class (added to
+ * <html> by an inline script when JavaScript is available). Without JS, blocks
+ * render fully visible — the animation is purely progressive enhancement.
+ */
+
+.bi-js .bi-animate {
+	opacity: 0;
+	transition-property: opacity, transform;
+	transition-duration: var( --bi-duration, 600ms );
+	transition-delay: var( --bi-delay, 0ms );
+	transition-timing-function: var( --bi-easing, cubic-bezier( 0.2, 0.7, 0.2, 1 ) );
+	will-change: opacity, transform;
+}
+
+.bi-js .bi-animate.is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+/* Per-preset starting transforms. */
+.bi-js .bi-fade-up {
+	transform: translateY( 24px );
+}
+
+.bi-js .bi-fade-down {
+	transform: translateY( -24px );
+}
+
+.bi-js .bi-fade-left {
+	transform: translateX( 24px );
+}
+
+.bi-js .bi-fade-right {
+	transform: translateX( -24px );
+}
+
+.bi-js .bi-zoom-in {
+	transform: scale( 0.92 );
+}
+
+/* fade-in needs no transform — opacity only. */
+
+/* Respect the user's motion preference. */
+@media ( prefers-reduced-motion: reduce ) {
+	.bi-js .bi-animate,
+	.bi-js .bi-animate.is-visible {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+ * Hover / focus effects.
+ *
+ * These are pure CSS and require no JavaScript, so they are NOT scoped under
+ * `.bi-js` — they work with scripting disabled. Each effect also responds to
+ * keyboard focus via `:focus-within` (firing when a focusable child such as a
+ * link or button is focused), giving keyboard users parity with pointer users.
+ * ------------------------------------------------------------------------- */
+
+.bi-hover {
+	transition-duration: var( --bi-hover-duration, 250ms );
+	transition-timing-function: ease;
+}
+
+/* Lift — rises slightly with a soft shadow. */
+.bi-hover-lift {
+	transition-property: transform, box-shadow;
+}
+
+.bi-hover-lift:hover,
+.bi-hover-lift:focus-within {
+	transform: translateY( -4px );
+	box-shadow: 0 12px 28px rgba( 0, 0, 0, 0.16 );
+}
+
+/* Scale — gentle grow. */
+.bi-hover-scale {
+	transition-property: transform;
+}
+
+.bi-hover-scale:hover,
+.bi-hover-scale:focus-within {
+	transform: scale( 1.03 );
+}
+
+/* Frame Zoom — the image scales inside a fixed frame (no layout shift). */
+.bi-hover-frame-zoom {
+	overflow: hidden;
+}
+
+.bi-hover-frame-zoom img,
+.bi-hover-frame-zoom .wp-block-cover__image-background {
+	transition: transform var( --bi-hover-duration, 250ms ) ease;
+	transform-origin: center;
+}
+
+.bi-hover-frame-zoom:hover img,
+.bi-hover-frame-zoom:focus-within img,
+.bi-hover-frame-zoom:hover .wp-block-cover__image-background,
+.bi-hover-frame-zoom:focus-within .wp-block-cover__image-background {
+	transform: scale( 1.06 );
+}
+
+/* Brighten — warms the element. */
+.bi-hover-brighten {
+	transition-property: filter;
+}
+
+.bi-hover-brighten:hover,
+.bi-hover-brighten:focus-within {
+	filter: brightness( 1.08 ) saturate( 1.12 );
+}
+
+/* Glow — soft colored shadow. */
+.bi-hover-glow {
+	transition-property: box-shadow;
+}
+
+.bi-hover-glow:hover,
+.bi-hover-glow:focus-within {
+	box-shadow: 0 0 0 1px rgba( 109, 40, 217, 0.35 ), 0 6px 24px rgba( 109, 40, 217, 0.35 );
+}
+
+/* Underline Sweep — an underline grows in from the left. */
+.bi-hover-underline {
+	position: relative;
+}
+
+.bi-hover-underline::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 2px;
+	background-color: currentColor;
+	transform: scaleX( 0 );
+	transform-origin: left center;
+	transition: transform var( --bi-hover-duration, 250ms ) ease;
+}
+
+.bi-hover-underline:hover::after,
+.bi-hover-underline:focus-within::after {
+	transform: scaleX( 1 );
+}
+
+/*
+ * Underline Sweep (link) — same effect, but the bar is drawn under an inner
+ * <a> rather than the block's bottom edge. Best for a single, standalone link
+ * (e.g. a button or a linked image/heading). For an inline link that can wrap
+ * across lines, add `display: inline-block` to the anchor in your theme so the
+ * bar matches the link's width.
+ */
+.bi-hover-underline-link a {
+	position: relative;
+}
+
+.bi-hover-underline-link a::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 2px;
+	background-color: currentColor;
+	transform: scaleX( 0 );
+	transform-origin: left center;
+	transition: transform var( --bi-hover-duration, 250ms ) ease;
+}
+
+.bi-hover-underline-link:hover a::after,
+.bi-hover-underline-link:focus-within a::after {
+	transform: scaleX( 1 );
+}
+
+/*
+ * Reduced motion: drop the movement-based effects (lift travel, scale, zoom,
+ * underline sweep) while keeping non-motion cues (shadow, brightness, glow,
+ * and the underline itself) so the hover affordance is not lost entirely.
+ */
+@media ( prefers-reduced-motion: reduce ) {
+	.bi-hover-lift:hover,
+	.bi-hover-lift:focus-within,
+	.bi-hover-scale:hover,
+	.bi-hover-scale:focus-within,
+	.bi-hover-frame-zoom:hover img,
+	.bi-hover-frame-zoom:focus-within img,
+	.bi-hover-frame-zoom:hover .wp-block-cover__image-background,
+	.bi-hover-frame-zoom:focus-within .wp-block-cover__image-background {
+		transform: none;
+	}
+
+	.bi-hover,
+	.bi-hover-underline::after,
+	.bi-hover-underline-link a::after {
+		transition: none;
+	}
+}

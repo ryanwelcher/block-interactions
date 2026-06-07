@@ -1,0 +1,22 @@
+{
+	"name": "ryanwelcher/block-interactions",
+	"description": "Bring your blocks to life with elegant, accessible interactions — entrance animations, hover effects, and more — powered by the WordPress Interactivity API.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=8.0"
+	},
+	"require-dev": {
+		"wp-coding-standards/wpcs": "^3.1",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+	},
+	"scripts": {
+		"lint": "phpcs",
+		"format": "phpcbf"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
+}
