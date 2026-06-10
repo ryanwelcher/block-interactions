@@ -92,6 +92,6 @@ class Assets {
 			return;
 		}
 
-		echo "<script>document.documentElement.classList.add('bi-js');</script>\n";
+		wp_print_inline_script_tag( "document.documentElement.classList.add('bi-js');" );
 	}
 }

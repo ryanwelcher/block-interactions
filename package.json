@@ -8,6 +8,7 @@
 	"files": [
 		"block-interactions.php",
 		"includes",
+		"src",
 		"build",
 		"assets",
 		"readme.txt"

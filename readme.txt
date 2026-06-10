@@ -1,5 +1,5 @@
 === Block Interactions ===
-Contributors: ryanwelcher
+Contributors: welcher
 Tags: blocks, animation, interactivity-api, motion
 Requires at least: 6.5
 Tested up to: 7.0
@@ -24,7 +24,15 @@ Animations are progressive enhancement: triggers are handled by the Interactivit
 
 == Development ==
 
-* `npm install && npm run build` — build the editor script.
+The complete, human-readable source code for this plugin — including the
+unminified editor script (`src/index.js`) that compiles to `build/index.js` —
+is included in the distributed plugin and is also developed in the open at:
+
+https://github.com/ryanwelcher/block-interactions
+
+Build tools and steps:
+
+* `npm install && npm run build` — compile `src/index.js` into `build/index.js` (uses @wordpress/scripts / webpack).
 * `composer install` — install PHPCS + WordPress Coding Standards.
 * `composer run lint` / `composer run format` — check / auto-fix PHP against WPCS.
 
